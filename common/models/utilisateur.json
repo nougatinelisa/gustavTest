@@ -1,0 +1,30 @@
+{
+  "name": "utilisateur",
+  "plural": "utilisateurs",
+  "base": "User",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {},
+  "validations": [],
+  "relations": {
+    "holocubes": {
+      "type": "hasMany",
+      "model": "holocube",
+      "foreignKey": "utilisateurId"
+    },
+    "videos": {
+      "type": "hasMany",
+      "model": "video",
+      "foreignKey": "utilisateurId"
+    },
+    "playlists": {
+      "type": "hasMany",
+      "model": "playlist",
+      "foreignKey": "utilisateurId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}
