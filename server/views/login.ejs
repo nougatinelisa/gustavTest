@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GustavByCocktail Player</title>
+</head>
+<body>
+
+<h1>Page de connexion</h1>
+
+<form action="/adminLogin" method="post">
+    <input type="text" name="email" placeholder="Email"><br>
+    <input type="password" name="password" placeholder="Password"><br>
+    <input type="submit" value="Login">
+</form>
+
+<% if (loginFailed) { %>
+        <span style="color:red">Login failed, please try again</span>
+<% } %>
+
+</body>
+</html>
