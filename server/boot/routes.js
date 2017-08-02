@@ -63,6 +63,9 @@ module.exports = function(app) {
         if (!localStorage.getItem('accessToken')) return res.sendStatus(401); //return 401:unauthorized if accessToken is not present
         app.models.utilisateur.logout(localStorage.getItem('accessToken'), function(err) {
             if (err) return next(err);
+
+            localStorage.removeItem('accessToken');
+
             res.redirect('/'); //on successful logout, redirect
         });
     });
