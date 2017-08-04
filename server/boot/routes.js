@@ -117,7 +117,7 @@ module.exports = function(app) {
             playlistId: playlist
         }, function (err, holocube) {
             if(err) {
-                return res.render('login', {
+                return res.render('back/hologramme/new', {
                     nom: nom,
                     adresseIP: adresseIP,
                     mdp: mdp,
