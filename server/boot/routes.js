@@ -1,9 +1,11 @@
 // All variables that will be used again
 module.exports = function(app) {
+    const LoginCtrl = require('../../controller/LoginController');
     var router = app.loopback.Router();
     var holocube = app.models.holocube;
     var utilisateur = app.models.utilisateur;
     var playlist = app.models.playlist;
+    const loginController = new LoginCtrl(utilisateur);
 
     if (typeof localStorage === "undefined" || localStorage === null) {
         var LocalStorage = require('node-localstorage').LocalStorage;
@@ -16,11 +18,7 @@ module.exports = function(app) {
     });
 
     // login page
-    router.get('/login', function(req, res) {
-        res.render('login', {
-            loginFailed: false
-        });
-    });
+    router.get('/login', loginController.getLoginAction);
 
     // page where you send the data and connect the user
     router.post('/adminLogin', function(req, res) {
