@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GustavByCocktail Player</title>
+</head>
+<body>
+
+<h1>Holocubes</h1>
+
+<a href="/admin/holocube/new">Créer un nouvel holocube</a>
+
+<table>
+    <tr>
+        <th>Nom</th>
+        <th>Adresse IP</th>
+        <th>Mot de passe</th>
+        <th>Client</th>
+        <th>Playlist</th>
+    </tr>
+    <% holocubes.forEach(function(holocube) { %>
+        <tr>
+            <td><%= holocube.nomHolocube %></td>
+            <td><%= holocube.adresseIP %></td>
+            <td><%= holocube.mdp %></td>
+            <td><%= holocube.playlistId %></td>
+            <td><%= holocube.utilisateurId %></td>
+            <td><a href="/admin/holocube/<%= holocube.id %>">Modifier</a></td>
+            <td><a>Supprimer</a></td>
+        </tr>
+    <% }); %>
+</table>
+
+<% if (empty) { %>
+    <span>Il n'y a pas d'holocube pour le moment</span>
+<% } %>
+
+<hr>
+
+<a href="/logout">Déconnexion</a>
+
+</body>
+</html>
