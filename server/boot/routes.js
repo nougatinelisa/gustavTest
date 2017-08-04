@@ -12,7 +12,17 @@ module.exports = function(app) {
 
     //index of the website
     router.get('/', function (req, res) {
-        res.render('index');
+
+        if (localStorage.getItem('accessToken')) {
+            res.render('index', {
+                accessToken: true
+            });
+        }
+        else {
+            res.render('index', {
+                accessToken: false
+            });
+        }
     });
 
     // login page

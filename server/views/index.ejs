@@ -6,7 +6,11 @@
 </head>
 <body>
 
-<a href="/login">Se connecter</a>
+<% if(accessToken){ %>
+    <a href="/logout">Déconnexion</a>
+<% } else{ %>
+    <a href="/login">Se connecter</a>
+<% } %>
 
 <h1>Page d'accueil</h1>
 
