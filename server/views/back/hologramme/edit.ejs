@@ -9,9 +9,9 @@
 <h1>Modifier l'holocube </h1>
 
 <form action="" method="post">
-    Nom: <input type="text" name="nom" placeholder="Nom" required><br>
-    Adresse IP: <input type="text" name="adresseIP" placeholder="Adresse IP" required><br>
-    Mot de passe: <input type="password" name="password" placeholder="Mot de passe" required><br>
+    Nom: <input type="text" name="nom" placeholder="Nom" value="<%= holocube.nomHolocube %>" required><br>
+    Adresse IP: <input type="text" name="adresseIP" placeholder="Adresse IP" value="<%= holocube.adresseIP %>" required><br>
+    Mot de passe: <input type="password" name="password" placeholder="Mot de passe" value="<%= holocube.mdp %>" required><br>
     <label for="clientHolo">Client:</label>
     <select id="clientHolo" name="client">
         <option></option>
