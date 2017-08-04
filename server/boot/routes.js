@@ -69,10 +69,23 @@ module.exports = function(app) {
         holocube.find({}, function (err, holocubes) {
             if(err) {}
 
-            res.render('back/hologramme/index', {
-                holocubes: holocubes,
-                empty: false
-            })
+            utilisateur.find({}, function (err, utilisateurs) {
+                if (err) {
+                }
+
+                playlist.find({}, function (err, playlists) {
+                    if (err) {
+                    }
+
+                    res.render('back/hologramme/index', {
+                        holocubes: holocubes,
+                        utilisateurs: utilisateurs,
+                        playlists: playlists,
+                        empty: false,
+                        err: false
+                    })
+                });
+            });
         });
     });
 
@@ -127,11 +140,12 @@ module.exports = function(app) {
                 });
             }
             res.redirect('/admin/holocube')
+            // Penser à ajouter un message de réussite qui disparait ensuite
         })
     });
 
     // edit holocube
-    router.get('/admin/holocube/:id', function (req, res) {
+    router.get('/admin/holocube/:id/edit', function (req, res) {
         if (!localStorage.getItem('accessToken')) {
             return res.sendStatus(401);
         }
@@ -157,11 +171,58 @@ module.exports = function(app) {
     });
 
     //edit holocube when you send the POST data
-    router.post('/admin/holocube/:id', function (req, res) {
+    router.post('/admin/holocube/:id/edit', function (req, res) {
         if (!localStorage.getItem('accessToken')) {
             return res.sendStatus(401);
         }
+
+        var holocubeId = req.params.id;
+        var nom = req.body.nom;
+        var adresseIP = req.body.adresseIP;
+        var mdp = req.body.password;
+        var client = req.body.client;
+        var playlist = req.body.playlist;
+
+        holocube.updateAll({id: holocubeId},{
+            nomHolocube: nom,
+            adresseIP: adresseIP,
+            mdp: mdp,
+            utilisateurId: client,
+            playlistId: playlist
+        }, function (err, holocube) {
+            if(err) {
+                return res.render('back/hologramme/edit', {
+                    nom: nom,
+                    adresseIP: adresseIP,
+                    mdp: mdp,
+                    client: client,
+                    playlist: playlist,
+                    err: true
+                });
+            }
+            res.redirect('/admin/holocube')
+        })
     });
+    
+    router.get('/admin/holocube/:id/delete', function (req, res) {
+        if (!localStorage.getItem('accessToken')) {
+            return res.sendStatus(401);
+        }
+        // Penser à ajouter une fenêtre de confirmation avant (pop-up)
+        var holocubeId = req.params.id;
+
+        holocube.destroyById(holocubeId, function (err, done) {
+            if(err) {
+                return res.render('back/hologramme/index', {
+                    err: true,
+                    empty: false
+                });
+            }
+            res.redirect('/admin/holocube')
+        })
+    });
+
+
 
     //log a user out
     router.get('/logout', function(req, res, next) {
